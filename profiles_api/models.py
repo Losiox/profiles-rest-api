@@ -4,7 +4,7 @@ from django.contrib.auth.models import PermissionsMixin
 from django.contrib.auth.models import BaseUserManager
 
 
-class UserProfileManager():
+class UserProfileManager(BaseUserManager):
     """ Mangaer for user profiles """
 
     def create_user(self, email, name, password=None):
@@ -12,9 +12,9 @@ class UserProfileManager():
         if not email:
             raise ValueError('User must have address')
         email = self.normalize_email(email)
-        user = seld.model(email=email, name=name)
+        user = self.model(email=email, name=name)
         user.set_password(password)
-        user.save(using.self._db)
+        user.save(using=self._db)
 
         return user
 
